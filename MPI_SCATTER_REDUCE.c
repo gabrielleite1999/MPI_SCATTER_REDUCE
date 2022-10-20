@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 
   if (myrank == 0) 
   {
-   	float data[12] = {1,2,3,4,55.3,6,7,8,9,10,11,12};
+   	float data[12] = {1,2,3,4,5,6,7,8,9,10,11,12};
     float recv[4];
    	
     MPI_Scatter (
@@ -34,23 +34,20 @@ int main(int argc, char **argv)
       0,
       MPI_COMM_WORLD
     );
-
-    int resp = 50;
-    float x;
     
     float maiorLocal;
 
     int i;
-		maiorLocal = recv[0];
-		for (i = 0; i < 4; ++i)
+	maiorLocal = recv[0];
+	for (i = 0; i < 4; ++i)
     {
-			if (recv[i] > maiorLocal)
-      {
-				maiorLocal = recv[i];
-      }
-		}
+		if (recv[i] > maiorLocal)
+		{
+			maiorLocal = recv[i];
+      	}
+	}
 
-		printf ("\nProcesso(%d) > Recebi: ", myrank);
+	printf ("\nProcesso(%d) > Recebi: ", myrank);
     printf ("%f,", recv[0]);
     printf ("%f,", recv[1]);
     printf ("%f,", recv[2]);
@@ -77,7 +74,7 @@ int main(int argc, char **argv)
     
     MPI_Scatter (
       &x,
-      4,
+      1,
       MPI_FLOAT,
       recv,
       4,
@@ -90,18 +87,14 @@ int main(int argc, char **argv)
     float maioral;
 
     int i;
-		maiorLocal = recv[0];
-		for (i = 0; i < 4; ++i)
+	maiorLocal = recv[0];
+	for (i = 0; i < 4; ++i)
     {
-			if (recv[i] > maiorLocal)
-      {
-				maiorLocal = recv[i];
-      }
-		}
-
-    
-
-		
+		if (recv[i] > maiorLocal)
+      	{
+			maiorLocal = recv[i];
+      	}
+	}
 
     printf ("\nProcesso(%d) > Recebi: ", myrank);
     printf ("%f,", recv[0]);
@@ -120,7 +113,6 @@ int main(int argc, char **argv)
     MPI_COMM_WORLD);
     
   }
-
 
   MPI_Finalize();
 
